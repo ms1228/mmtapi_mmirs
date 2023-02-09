@@ -1,8 +1,5 @@
 import mmtapi.mmtapi as mmtapi
 
-demoTOKEN = '0f3732fcfb1c8577c390e71a176f3c8f'
-mmirsToken = 'fd54484e987d52bb549aba2fe84edfd7'
-
 def test_post_binospec():
     payload = {'centralwavelength': 6500.0, 'dec': '-19:30:45.100', 'epoch': 2000.0, 'exposuretime': 450.0, 
         'filter': 'LP3800', 'grating': '270','magnitude': 16.9, 'maskid': 111, 'notes': 'Supernova Classification', 
