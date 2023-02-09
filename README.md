@@ -39,15 +39,24 @@ To create a target there are a lot of required fields and conditional parameters
 * `dec`: Declination of the target. Required format to be: `[+/-]dd:dd:dd.d`
 * `magnitude`: Magnitude of the target. Must be a `float`
 * `epoch`: The epoch of the target. Defaults to 2000.0
+* `instrumentid`: 15 is for MMIRS and 16 is for Binospec
 
 The target exposure information is based on the the field `observationtype`:
 
-For `observationtype:imaging`:
+For Binospec `observationtype:imaging`:
 * `filter`: Must be `g`, `r`, `i`, or `z`
 * `maskid`: can be `110` or a predefined mask set up prior to target request
 * `exposuretime`: The observation exposure time in seconds
 
-For `observationtype:longslit`:
+For MMIRS `observationtype:imaging`:
+* `filter`: Must be `J`, `H`, `K`, or `Ks`
+* `dithersize`: Must be `5`, `7`, `10`, `15`, `20`, `30`, `60`, `120`, or `210`
+* `readtab`: Must be `ramp_4.426` or ramp_1.475`
+* `maskid`: can be `110` or a predefined mask set up prior to target request
+* `exposuretime`: The observation exposure time in seconds
+
+
+For Binospec `observationtype:longslit`:
 * `grating`: Valid options are `270`, `600`, and `1000`
 * `centralwavelength`: Depending on the chosen `grating`:
   * For `grating=270`, valid options are between `5501-7838`
@@ -61,6 +70,13 @@ For `observationtype:longslit`:
   * For `Longslit1_25`: id `131`
   * For `Longslit1_5`: id `114`
   * For `Longslit5`: id `112`
+
+For MMIRS `observationtype:longslit`:
+* `grism`: Valid options are `J`, `HK`, and `HK3`
+* `readtab`: Valid options are `ramp_4.426`
+* `slitwidth`: valid options are '1pixel', '2pixel', '3pixel', '4pixel', '5pixel','6pixel','12pixel'
+* `slitwidthproperty`: valid options are 'long', 'short'
+
 
 Other observation metadata:
 
@@ -94,7 +110,7 @@ payload = {
 }
 
 
-#example payload for longslit target payload
+#example payload for Binospec longslit target payload
 
 payload = {
   'objectid':'Targetname',
@@ -112,6 +128,14 @@ payload = {
   'priority':1,
   'targetofopportunity':1
 }
+
+#example payload for MMIRS longslit target payload
+
+payload = {'dec': '-19:30:45.100', 'epoch': 'J2000', 'exposuretime': 450.0,
+        'filter': 'zJ', 'grating': '270','magnitude': 16.9, 'maskid': 111, 'notes': 'Demo observation request. Please do not observe this.',
+        'numberexposures': 3, 'objectid': 'AT2021fxy', 'observationtype': 'longslit','priority': 3, 'ra': '13:13:01.560',
+        'slitwidth': '1pixel', 'targetofopportunity': 0, 'visits': 1,'instrumentid':15, 'gain':'low',
+        'readtab': 'ramp_4.426', 'grism':'J', 'slitwidthproperty':'long', 'dithersize':'5' }
 
 #this will create the target along with validating the payload information. It will inform the user of any errors or warnings associated with the metadata
 target = mmtapi.Target(token=API_TOKEN, 
