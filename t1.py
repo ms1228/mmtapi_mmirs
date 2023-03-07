@@ -12,9 +12,9 @@ def test_post_binospec():
     t.post()
 
 def test_post_mmirs():
-    payload = {'dec': '-19:30:45.100', 'epoch': 'J2000', 'exposuretime': 450.0, 
-        'filter': 'zJ', 'grating': '270','magnitude': 16.9, 'maskid': 111, 'notes': 'Demo observation request. Please do not observe this.', 
-        'numberexposures': 3, 'objectid': 'AT2021fxy', 'observationtype': 'longslit','priority': 3, 'ra': '13:13:01.560', 
+    payload = {'objectid': 'AT2021fxy', 'observationtype': 'longslit','priority': 3,'dec': '-19:30:45.100', 
+        'ra': '13:13:01.560', 'epoch': 'J2000', 'exposuretime': 450.0,'filter': 'zJ', 'grating': '270','magnitude': 16.9, 
+        'maskid': 111, 'notes': 'Demo observation request. Please do not observe this.', 'numberexposures': 3, 
         'slitwidth': '1pixel', 'targetofopportunity': 0, 'visits': 1,'instrumentid':15, 'gain':'low',
         'readtab': 'ramp_4.426', 'grism':'J', 'slitwidthproperty':'long', 'dithersize':'5' }
     t = mmtapi.Target(token=mmirsToken, payload=payload)
